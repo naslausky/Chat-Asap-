@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,10 +29,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
-
-  void _incrementCounter() {
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(10.0),
               child: FloatingActionButton(
                 onPressed: () {
-                  print(paisSelecionado.name);
+                  try {
+                    _abrirConversa('abc');
+                  } catch (e) {
+                    print(e.toString());
+                  }
                 },
                 child: Icon(Icons.perm_phone_msg),
               ),
@@ -103,4 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       );
+
+  _abrirConversa(String phone) async {
+    String universalLinkWhatsapp = 'https://wa.me/';
+    String intentWhatsapp = 'whatsapp://send?';
+    String url = universalLinkWhatsapp + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
