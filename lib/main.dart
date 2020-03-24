@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
+  String numeroDigitado = '';
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         border: OutlineInputBorder(),
                         labelText: 'Phone number',
                       ),
+                      onChanged: (String numero) {
+                        numeroDigitado = numero;
+                      },
                     ),
                   ),
                 )
@@ -79,7 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: FloatingActionButton(
                 onPressed: () {
                   try {
-                    _abrirConversa('abc');
+                    String numeroCompleto =
+                        paisSelecionado.phoneCode + numeroDigitado;
+                    _abrirConversa(numeroCompleto);
                   } catch (e) {
                     print(e.toString());
                   }
