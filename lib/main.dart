@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:country_pickers/country_pickers.dart';
+import 'package:country_pickers/country.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,12 +27,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    setState(() {});
   }
 
   @override
@@ -43,26 +43,64 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Phone number',
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: CountryPickerDropdown(
+                    initialValue: 'BR',
+                    itemBuilder: _construirItemDropdown,
+                    priorityList: [
+                      CountryPickerUtils.getCountryByIsoCode('BR'),
+                    ],
+                    sortComparator: (Country a, Country b) =>
+                        a.isoCode.compareTo(b.isoCode),
+                    onValuePicked: (Country country) {
+                      paisSelecionado = country;
+                    },
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Phone number',
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
-            FloatingActionButton(
-              onPressed: () {},
-              child: Icon(Icons.perm_phone_msg),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  print(paisSelecionado.name);
+                },
+                child: Icon(Icons.perm_phone_msg),
+              ),
             )
           ],
         ),
       ),
     );
   }
+
+  Widget _construirItemDropdown(Country country) => Container(
+        child: Row(
+          children: <Widget>[
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text("+${country.phoneCode}(${country.isoCode})"),
+          ],
+        ),
+      );
 }
