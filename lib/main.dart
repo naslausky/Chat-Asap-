@@ -68,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Phone number',
+                        labelText: 'Full phone number',
+                        //hintText: '',
                       ),
                       onChanged: (String numero) {
                         numeroDigitado = numero;
