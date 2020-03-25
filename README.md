@@ -1,16 +1,24 @@
-# chat_asap
+# Chat ASAP!
 
-Aplicativo para conversa whatsapp sem necessidade de adição de contato.
+Aplicativo para iniciar conversas no Whatsapp sem a necessidade prévia de adição de contatos.
 
-## Getting Started
+## Descrição
 
-This project is a starting point for a Flutter application.
+Aplicativo para uso próprio com o objetivo de facilitar um transtorno que algumas pessoas passam:
+Ter a necessidade de adicionar alguém para conversar, e caso não queira manter o contato adicionado precisar deletar depois.
 
-A few resources to get you started if this is your first Flutter project:
+O aplicativo tem como entrada um campo de texto que só aceita números, e deve ser inserido o número completo (i.e. incluindo o código da cidade). Além disso, para facilitar, coloquei um dropdown de países com o Brasil como padrão e primeiro da lista. Desta forma, o usuário não precisa ficar digitando "55" sempre, sem impedir de ser escolhido um país de origem diferente. Por fim há um botão para formar o número composto pelo código do país e o que foi digitado, e abrir o Whatsapp.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![Print do resultado](/docs/printscreen_resize.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Melhorias a serem feitas
+- Melhorar o layout.
+- Adicionar uma forma de sugestão de código de cidade.
+- Utilizar a API do Whatsapp de maneira completa e permitir uma digitação prévia da mensagem a ser enviada.
+- Salvar nas SharedPreferences/NSUserDefaults as últimas escolhas feitas (inclusive as ainda não implementadas), com a exceção talvez do número. Desta forma uma pessoa pode manter sempre como padrão o mesmo país, DDD e a mesma mensagem padrão. (Para o caso de um usuário que tem uma saudação comum.)
+
+
+## Dependências utilizadas
+
+- [country_pickers](https://pub.dev/packages/country_pickers)
+- [url_launcher](https://pub.dev/packages/url_launcher)
