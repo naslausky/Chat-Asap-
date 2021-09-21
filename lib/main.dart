@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:chat_asap/components/item_pais_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,16 +13,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Chat ASAP',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(),
+      darkTheme: ThemeData.dark(),
       home: MyHomePage(title: 'Chat ASAP'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title = ""}) : super(key: key);
   final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -42,20 +42,29 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: CountryPickerDropdown(
-                    initialValue: 'BR',
-                    itemBuilder: _construirItemDropdown,
-                    priorityList: [
-                      CountryPickerUtils.getCountryByIsoCode('BR'),
-                    ],
-                    sortComparator: (Country a, Country b) =>
-                        a.isoCode.compareTo(b.isoCode),
-                    onValuePicked: (Country country) {
-                      paisSelecionado = country;
-                    },
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: CountryPickerDropdown(
+                      initialValue: 'BR',
+                      itemBuilder: (Country country) =>
+                          CountryRowWidget(country: country),
+                      priorityList: [
+                        CountryPickerUtils.getCountryByIsoCode('BR'),
+                      ],
+                      sortComparator: (Country a, Country b) =>
+                          a.isoCode.compareTo(b.isoCode),
+                      onValuePicked: (Country country) {
+                        paisSelecionado = country;
+                      },
+                    ),
                   ),
                 ),
                 Expanded(
@@ -64,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TextField(
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
-                        WhitelistingTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                       ],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -100,26 +109,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _construirItemDropdown(Country country) => Container(
-        child: Row(
-          children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
-              width: 8.0,
-            ),
-            Text("+${country.phoneCode}(${country.isoCode})"),
-          ],
-        ),
-      );
-
   _abrirConversa(String phone) async {
+    //String intentWhatsapp = 'whatsapp://send?';
     String universalLinkWhatsapp = 'https://wa.me/';
-    String intentWhatsapp = 'whatsapp://send?';
     String url = universalLinkWhatsapp + phone;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw 'Could not launch $url';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Não foi possível abrir o Whatsapp.'),
+      ));
     }
   }
 }
