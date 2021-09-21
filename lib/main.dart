@@ -15,19 +15,19 @@ class MyApp extends StatelessWidget {
       title: 'Chat ASAP',
       theme: ThemeData(),
       darkTheme: ThemeData.dark(),
-      home: MyHomePage(title: 'Chat ASAP'),
+      home: PaginaInicial(title: 'Chat ASAP'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = ""}) : super(key: key);
+class PaginaInicial extends StatefulWidget {
+  PaginaInicial({Key? key, this.title = ""}) : super(key: key);
   final String title;
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PaginaInicialState createState() => _PaginaInicialState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PaginaInicialState extends State<PaginaInicial> {
   Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
   String numeroDigitado = '';
 
