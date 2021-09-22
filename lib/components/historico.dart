@@ -11,15 +11,15 @@ class Historico extends StatelessWidget {
     return Container(
       //color: Colors.black,
       child: ListView.builder(
-          reverse: true,
-          itemCount: dados.length,
-          itemBuilder: (BuildContext context, int index) => ListTile(
-                title: Text(dados[index]),
-                trailing: IconButton(
-                  icon: const Icon(Icons.refresh),
-                  onPressed: () => callback(dados[index]),
-                ),
-              )),
+        itemCount: dados.length,
+        itemBuilder: (BuildContext context, int index) => ListTile(
+          title: Text('+' + dados[index]),
+          trailing: IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => callback(dados[index]),
+          ),
+        ),
+      ),
     );
   }
 }

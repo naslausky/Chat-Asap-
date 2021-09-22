@@ -69,7 +69,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Full phone number',
-                        //hintText: '',
+                        hintText: 'City code included',
                       ),
                       onChanged: (String numero) {
                         numeroDigitado = numero;
@@ -106,7 +106,8 @@ class _PaginaInicialState extends State<PaginaInicial> {
             Expanded(
               flex: 3,
               child: Historico(
-                  dados: Preferencias.historico, callback: _abrirConversa),
+                  dados: Preferencias.historico.reversed.toList(),
+                  callback: _abrirConversa),
             ),
           ],
         ),

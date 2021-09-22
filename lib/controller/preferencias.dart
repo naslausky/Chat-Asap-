@@ -18,7 +18,7 @@ class Preferencias {
     prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<void> limparHistorico() async {
+  static Future<void> limparPreferencias() async {
     await prefs?.clear();
   }
 
@@ -45,6 +45,10 @@ class Preferencias {
   static set historico(List<String> historico) {
     String chave = _chavesPreferencias[Chaves.ultimasStringsChamadas] ?? "";
     prefs?.setStringList(chave, historico);
+  }
+
+  static void limparHistorico() {
+    historico = [];
   }
 
   static void adicionarNumeroAoHistorico(String novoNumero) {

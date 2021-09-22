@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool selecionouTemaEscuro = Preferencias.selecionouTemaEscuro;
     return MaterialApp(
-      title: 'Chat ASAP',
+      title: 'Chat ASAP!',
       theme: selecionouTemaEscuro ? ThemeData.dark() : ThemeData(),
       darkTheme: ThemeData.dark(),
-      home: PaginaInicial(title: 'Chat ASAP'),
+      home: PaginaInicial(title: 'Chat ASAP ⚡'),
     );
   }
 }
