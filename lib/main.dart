@@ -8,8 +8,13 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     bool selecionouTemaEscuro = Preferencias.selecionouTemaEscuro;
@@ -17,7 +22,14 @@ class MyApp extends StatelessWidget {
       title: 'Chat ASAP!',
       theme: selecionouTemaEscuro ? ThemeData.dark() : ThemeData(),
       darkTheme: ThemeData.dark(),
-      home: PaginaInicial(title: 'Chat ASAP ⚡'),
+      home: PaginaInicial(
+        title: 'Chat ASAP ⚡',
+        callbackAtualizacaoTema: _atualizarTema,
+      ),
     );
+  }
+
+  _atualizarTema() {
+    setState(() {});
   }
 }

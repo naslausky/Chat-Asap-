@@ -6,10 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:chat_asap/components/item_pais_widget.dart';
 import 'package:chat_asap/controller/preferencias.dart';
 import 'package:chat_asap/components/historico.dart';
+import 'package:chat_asap/components/opcoes.dart';
 
 class PaginaInicial extends StatefulWidget {
-  PaginaInicial({Key? key, this.title = ""}) : super(key: key);
+  PaginaInicial({Key? key, this.title = "", this.callbackAtualizacaoTema})
+      : super(key: key);
   final String title;
+  final Function? callbackAtualizacaoTema;
   @override
   _PaginaInicialState createState() => _PaginaInicialState();
 }
@@ -23,6 +26,16 @@ class _PaginaInicialState extends State<PaginaInicial> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => Opcoes(
+                        callback: widget.callbackAtualizacaoTema ??
+                            () => setState(() {}),
+                      )),
+              icon: Icon(Icons.info))
+        ],
       ),
       body: Center(
         child: Column(
@@ -97,7 +110,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
-                'Números anteriores:',
+                'Number history:',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -123,7 +136,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
       Preferencias.adicionarNumeroAoHistorico(phone);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Não foi possível abrir o Whatsapp.'),
+        content: Text('Unable to open Whatsapp.'),
       ));
     }
     setState(() {});
