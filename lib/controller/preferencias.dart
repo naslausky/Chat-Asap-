@@ -5,7 +5,7 @@ enum Chaves {
   ultimasStringsChamadas,
 }
 
-class Preferences {
+class Preferencias {
   static SharedPreferences? prefs;
   static final tamanhoHistorico = 5;
 

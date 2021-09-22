@@ -4,6 +4,8 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:chat_asap/components/item_pais_widget.dart';
+import 'package:chat_asap/controller/preferencias.dart';
+import 'package:chat_asap/components/historico.dart';
 
 class PaginaInicial extends StatefulWidget {
   PaginaInicial({Key? key, this.title = ""}) : super(key: key);
@@ -25,7 +27,11 @@ class _PaginaInicialState extends State<PaginaInicial> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Expanded(
+              child: Container(),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -87,7 +93,21 @@ class _PaginaInicialState extends State<PaginaInicial> {
                 },
                 child: Icon(Icons.perm_phone_msg),
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                'Números anteriores:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Divider(),
+            Expanded(
+              flex: 3,
+              child: Historico(
+                  dados: Preferencias.historico, callback: _abrirConversa),
+            ),
           ],
         ),
       ),
@@ -95,15 +115,16 @@ class _PaginaInicialState extends State<PaginaInicial> {
   }
 
   _abrirConversa(String phone) async {
-    //String intentWhatsapp = 'whatsapp://send?';
     String universalLinkWhatsapp = 'https://wa.me/';
     String url = universalLinkWhatsapp + phone;
     if (await canLaunch(url)) {
       await launch(url);
+      Preferencias.adicionarNumeroAoHistorico(phone);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Não foi possível abrir o Whatsapp.'),
       ));
     }
+    setState(() {});
   }
 }
