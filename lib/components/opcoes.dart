@@ -13,7 +13,7 @@ class _OpcoesState extends State<Opcoes> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Options"),
+      title: Text("Options:"),
       content: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

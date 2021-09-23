@@ -3,15 +3,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum Chaves {
   selecionouTemaEscuro,
   ultimasStringsChamadas,
+  ultimoPaisSelecionado,
 }
 
 class Preferencias {
   static SharedPreferences? prefs;
   static final tamanhoHistorico = 5;
+  static final _paisInicialPadrao = "BR";
 
   static final Map<Chaves, String> _chavesPreferencias = {
     Chaves.selecionouTemaEscuro: 'selecionou_tema_escuro',
     Chaves.ultimasStringsChamadas: 'ultimas_strings_chamadas',
+    Chaves.ultimoPaisSelecionado: 'ultimo_pais_selecionado',
   };
 
   static Future<void> inicializar() async {
@@ -33,6 +36,16 @@ class Preferencias {
       return prefs?.getBool(chave) ?? false;
     else
       return false;
+  }
+
+  static set ultimoPaisSelecionado(String codigoPais) {
+    String chave = _chavesPreferencias[Chaves.ultimoPaisSelecionado] ?? "";
+    prefs?.setString(chave, codigoPais);
+  }
+
+  static String get ultimoPaisSelecionado {
+    String chave = _chavesPreferencias[Chaves.ultimoPaisSelecionado] ?? "";
+    return prefs?.getString(chave) ?? _paisInicialPadrao;
   }
 
   static List<String> get historico {

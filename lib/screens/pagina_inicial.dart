@@ -57,16 +57,19 @@ class _PaginaInicialState extends State<PaginaInicial> {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: CountryPickerDropdown(
-                      initialValue: 'BR',
+                      initialValue: Preferencias.ultimoPaisSelecionado,
                       itemBuilder: (Country country) =>
                           CountryRowWidget(country: country),
                       priorityList: [
-                        CountryPickerUtils.getCountryByIsoCode('BR'),
+                        CountryPickerUtils.getCountryByIsoCode(
+                            Preferencias.ultimoPaisSelecionado),
                       ],
                       sortComparator: (Country a, Country b) =>
                           a.isoCode.compareTo(b.isoCode),
                       onValuePicked: (Country country) {
                         paisSelecionado = country;
+                        Preferencias.ultimoPaisSelecionado =
+                            paisSelecionado.isoCode;
                       },
                     ),
                   ),
