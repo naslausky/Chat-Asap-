@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat_asap/controller/preferencias.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:chat_asap/controller/abridor_url.dart';
 
 class Opcoes extends StatefulWidget {
   const Opcoes({required this.callback, Key? key}) : super(key: key);
@@ -10,12 +10,6 @@ class Opcoes extends StatefulWidget {
 }
 
 class _OpcoesState extends State<Opcoes> {
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -47,10 +41,17 @@ class _OpcoesState extends State<Opcoes> {
             ),
             Divider(),
             GestureDetector(
-              onTap: () => _launchURL('https://www.linkedin.com/in/naslausky/'),
-              child: Text(
-                "Made by: Naslausky",
-                textAlign: TextAlign.center,
+              onTap: () =>
+                  AbridorDeURL.abrir('https://www.linkedin.com/in/naslausky/'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Click here to send me a message!",
+                    textAlign: TextAlign.center,
+                  ),
+                  //Icon(Icons.airline_seat_flat)
+                ],
               ),
             ),
           ],

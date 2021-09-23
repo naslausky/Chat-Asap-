@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:chat_asap/controller/abridor_url.dart';
 import 'package:chat_asap/components/item_pais_widget.dart';
 import 'package:chat_asap/controller/preferencias.dart';
 import 'package:chat_asap/components/historico.dart';
@@ -131,8 +131,8 @@ class _PaginaInicialState extends State<PaginaInicial> {
   _abrirConversa(String phone) async {
     String universalLinkWhatsapp = 'https://wa.me/';
     String url = universalLinkWhatsapp + phone;
-    if (await canLaunch(url)) {
-      await launch(url);
+    bool conseguiuAbrir = await AbridorDeURL.abrir(url);
+    if (conseguiuAbrir) {
       Preferencias.adicionarNumeroAoHistorico(phone);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
