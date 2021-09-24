@@ -18,6 +18,7 @@ O aplicativo tem como entrada um campo de texto que só aceita números, e deve 
 - Salvar nas SharedPreferences/NSUserDefaults as últimas escolhas feitas (inclusive as ainda não implementadas), com a exceção talvez do número. Desta forma uma pessoa pode manter sempre como padrão o mesmo país, DDD e a mesma mensagem padrão. (Para o caso de um usuário que tem uma saudação comum.)
 - Salvar os últimos países também em ordem
 - Adicionar as máscaras de números para cada país selecionado.
+- Adicionar internacionalização dos textos
 
 ## Dependências utilizadas
 
