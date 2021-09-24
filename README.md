@@ -9,7 +9,7 @@ Ter a necessidade de adicionar alguém para conversar, e caso não queira manter
 
 O aplicativo tem como entrada um campo de texto que só aceita números, e deve ser inserido o número completo (i.e. incluindo o código da cidade). Além disso, para facilitar, coloquei um dropdown de países com o Brasil como padrão e primeiro da lista. Desta forma, o usuário não precisa ficar digitando "55" sempre, sem impedir de ser escolhido um país de origem diferente. Por fim há um botão para formar o número composto pelo código do país e o que foi digitado, e abrir o Whatsapp.
 
-![Print do resultado](/docs/printscreen_resize.png)
+![Print do resultado](/docs/printscreen2.png)
 
 ## Melhorias a serem feitas
 - Melhorar o layout.
