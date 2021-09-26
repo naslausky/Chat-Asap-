@@ -1,4 +1,4 @@
-# Chat ASAP!
+﻿# Chat ASAP!
 [English](#english) below.</br>
 Aplicativo para iniciar conversas no Whatsapp sem a necessidade prévia de adição de contatos. 
 
@@ -21,6 +21,8 @@ O aplicativo tem como entrada um campo de texto que só aceita números, e deve 
 - Adicionar as máscaras de números para cada país selecionado.
 - Adicionar internacionalização dos textos
 
+- Remover numeros duplicados do histórico
+- Tratar o dark mode do sistema operacional
 ## Dependências utilizadas
 
 - [country_pickers](https://pub.dev/packages/country_pickers)

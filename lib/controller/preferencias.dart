@@ -66,6 +66,10 @@ class Preferencias {
 
   static void adicionarNumeroAoHistorico(String novoNumero) {
     List<String> historicoAtual = historico;
+
+    if (historicoAtual.contains(novoNumero)) {
+      historicoAtual.remove(novoNumero);
+    }
     historicoAtual.add(novoNumero);
     if (historicoAtual.length > tamanhoHistorico) {
       historicoAtual.removeAt(0);
