@@ -18,11 +18,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     bool selecionouTemaEscuro = Preferencias.selecionouTemaEscuro;
+    ThemeData temaSelecionado =
+        selecionouTemaEscuro ? ThemeData.dark() : ThemeData();
+    bool jaMudouTema = Preferencias.jaEscolheuTema;
     return MaterialApp(
       title: 'Chat ASAP!',
       debugShowCheckedModeBanner: false,
-      theme: selecionouTemaEscuro ? ThemeData.dark() : ThemeData(),
-      darkTheme: ThemeData.dark(),
+      theme: temaSelecionado,
+      darkTheme: jaMudouTema ? temaSelecionado : (ThemeData.dark()),
       home: PaginaInicial(
         title: 'Chat ASAP ⚡',
         callbackAtualizacaoTema: _atualizarTema,

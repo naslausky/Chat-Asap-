@@ -4,6 +4,7 @@ enum Chaves {
   selecionouTemaEscuro,
   ultimasStringsChamadas,
   ultimoPaisSelecionado,
+  jaEscolheuTema,
 }
 
 class Preferencias {
@@ -15,6 +16,7 @@ class Preferencias {
     Chaves.selecionouTemaEscuro: 'selecionou_tema_escuro',
     Chaves.ultimasStringsChamadas: 'ultimas_strings_chamadas',
     Chaves.ultimoPaisSelecionado: 'ultimo_pais_selecionado',
+    Chaves.jaEscolheuTema: 'ja_escolheu_tema',
   };
 
   static Future<void> inicializar() async {
@@ -26,12 +28,26 @@ class Preferencias {
   }
 
   static set selecionouTemaEscuro(bool selecionou) {
+    jaEscolheuTema = true;
     String chave = _chavesPreferencias[Chaves.selecionouTemaEscuro] ?? '';
     prefs?.setBool(chave, selecionou);
   }
 
   static bool get selecionouTemaEscuro {
     String chave = _chavesPreferencias[Chaves.selecionouTemaEscuro] ?? '';
+    if (prefs?.containsKey(chave) ?? false)
+      return prefs?.getBool(chave) ?? false;
+    else
+      return false;
+  }
+
+  static set jaEscolheuTema(bool selecionou) {
+    String chave = _chavesPreferencias[Chaves.jaEscolheuTema] ?? '';
+    prefs?.setBool(chave, selecionou);
+  }
+
+  static bool get jaEscolheuTema {
+    String chave = _chavesPreferencias[Chaves.jaEscolheuTema] ?? '';
     if (prefs?.containsKey(chave) ?? false)
       return prefs?.getBool(chave) ?? false;
     else
