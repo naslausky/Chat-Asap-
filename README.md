@@ -12,17 +12,13 @@ O aplicativo tem como entrada um campo de texto que só aceita números, e deve 
 ![Print do resultado](/docs/printscreen2.png)
 
 ## Melhorias a serem feitas
-- Melhorar o layout.
-- Adicionar uma forma de sugestão de código de cidade.
-- Utilizar a API do Whatsapp de maneira completa e permitir uma digitação prévia da mensagem a ser enviada.
-- Salvar nas SharedPreferences/NSUserDefaults as últimas escolhas feitas (inclusive as ainda não implementadas), com a exceção talvez do número. Desta forma uma pessoa pode manter sempre como padrão o mesmo país, DDD e a mesma mensagem padrão. (Para o caso de um usuário que tem uma saudação comum.)
-- Dark mode.
+- Melhorar o layout
+- Adicionar uma forma de sugestão de código de cidade
+- Utilizar a API do Whatsapp de maneira completa e permitir uma digitação prévia da mensagem a ser enviada
 - Salvar os últimos países também em ordem
-- Adicionar as máscaras de números para cada país selecionado.
+- Adicionar as máscaras de números para cada país selecionado
 - Adicionar internacionalização dos textos
 
-- Remover numeros duplicados do histórico
-- Tratar o dark mode do sistema operacional
 ## Dependências utilizadas
 
 - [country_pickers](https://pub.dev/packages/country_pickers)
@@ -42,8 +38,8 @@ The input is a textfield that accepts only numbers, and must have the complete W
 - Improve layout
 - Add a way to suggest the city code.
 - Fully use the Whatsapp API in order to allow a previous typed message.
-- Save in cache last choices made in app.
-- Dark mode
+- Add masks
+- Add internationalization
 
 ## Packages used
 
