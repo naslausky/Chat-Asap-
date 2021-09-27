@@ -11,6 +11,15 @@ class Opcoes extends StatefulWidget {
 
 class _OpcoesState extends State<Opcoes> {
   @override
+  void initState() {
+    super.initState();
+    modoEscuroRequisitadoPeloSistema =
+        ((MediaQuery.of(context).platformBrightness == Brightness.dark) &&
+            !(Preferencias.jaEscolheuTema));
+  }
+
+  late bool modoEscuroRequisitadoPeloSistema;
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Options:"),
@@ -24,7 +33,9 @@ class _OpcoesState extends State<Opcoes> {
               children: [
                 Text('Toogle dark mode:'),
                 Switch(
-                    value: Preferencias.selecionouTemaEscuro,
+                    value: modoEscuroRequisitadoPeloSistema
+                        ? true
+                        : Preferencias.selecionouTemaEscuro,
                     onChanged: (bool ativado) {
                       Preferencias.selecionouTemaEscuro = ativado;
                       widget.callback();

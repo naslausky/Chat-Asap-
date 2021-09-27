@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
     ThemeData temaSelecionado =
         selecionouTemaEscuro ? ThemeData.dark() : ThemeData();
     bool jaMudouTema = Preferencias.jaEscolheuTema;
+
     return MaterialApp(
       title: 'Chat ASAP!',
       debugShowCheckedModeBanner: false,
