@@ -20,6 +20,7 @@ class PaginaInicial extends StatefulWidget {
 class _PaginaInicialState extends State<PaginaInicial> {
   Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
   String numeroDigitado = '';
+  TextEditingController numeroController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +79,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: TextField(
+                      controller: numeroController,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
@@ -86,10 +88,14 @@ class _PaginaInicialState extends State<PaginaInicial> {
                         border: OutlineInputBorder(),
                         labelText: 'Full phone number',
                         hintText: 'City code included',
+                        suffixIcon: numeroDigitado.length > 0
+                            ? IconButton(
+                                icon: Icon(Icons.clear),
+                                onPressed: _limparNumeroDigitado,
+                              )
+                            : null,
                       ),
-                      onChanged: (String numero) {
-                        numeroDigitado = numero;
-                      },
+                      onChanged: _inseriuNovoNumero,
                     ),
                   ),
                 )
@@ -129,6 +135,19 @@ class _PaginaInicialState extends State<PaginaInicial> {
         ),
       ),
     );
+  }
+
+  _inseriuNovoNumero(String numero) {
+    setState(() {
+      numeroDigitado = numero;
+    });
+  }
+
+  _limparNumeroDigitado() {
+    setState(() {
+      numeroController.clear();
+      numeroDigitado = '';
+    });
   }
 
   _abrirConversa(String phone) async {
