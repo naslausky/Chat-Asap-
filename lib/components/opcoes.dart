@@ -10,17 +10,12 @@ class Opcoes extends StatefulWidget {
 }
 
 class _OpcoesState extends State<Opcoes> {
-  @override
-  void initState() {
-    super.initState();
-    modoEscuroRequisitadoPeloSistema =
-        ((MediaQuery.of(context).platformBrightness == Brightness.dark) &&
-            !(Preferencias.jaEscolheuTema));
-  }
-
   late bool modoEscuroRequisitadoPeloSistema;
   @override
   Widget build(BuildContext context) {
+    modoEscuroRequisitadoPeloSistema =
+        ((MediaQuery.of(context).platformBrightness == Brightness.dark) &&
+            !(Preferencias.jaEscolheuTema));
     return AlertDialog(
       title: Text("Options:"),
       content: SingleChildScrollView(
@@ -40,6 +35,29 @@ class _OpcoesState extends State<Opcoes> {
                       Preferencias.selecionouTemaEscuro = ativado;
                       widget.callback();
                     }),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('History size:'),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Preferencias.decrementarTamanhoHistorico();
+                          widget.callback();
+                        },
+                        icon: Icon(Icons.remove)),
+                    Text('${Preferencias.tamanhoHistorico}'),
+                    IconButton(
+                        onPressed: () {
+                          Preferencias.incrementarTamanhoHistorico();
+                          widget.callback();
+                        },
+                        icon: Icon(Icons.add)),
+                  ],
+                ),
               ],
             ),
             Center(
