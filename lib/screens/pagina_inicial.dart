@@ -20,7 +20,7 @@ class PaginaInicial extends StatefulWidget {
 
 class _PaginaInicialState extends State<PaginaInicial> {
   Country paisSelecionado = CountryPickerUtils.getCountryByIsoCode('BR');
-  String numeroDigitado = '';
+
   TextEditingController numeroController = TextEditingController();
 
   @override
@@ -104,7 +104,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                               )
                             : null,
                       ),
-                      onChanged: _inseriuNovoNumero,
+                      onChanged: (_) => setState(() {}),
                     ),
                   ),
                 )
@@ -116,7 +116,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                 onPressed: () {
                   try {
                     String numeroCompleto =
-                        paisSelecionado.phoneCode + numeroDigitado;
+                        paisSelecionado.phoneCode + numeroController.text;
                     _abrirConversa(numeroCompleto);
                   } catch (e) {
                     print(e.toString());
@@ -146,16 +146,9 @@ class _PaginaInicialState extends State<PaginaInicial> {
     );
   }
 
-  _inseriuNovoNumero(String numero) {
-    setState(() {
-      numeroDigitado = numero;
-    });
-  }
-
   _limparNumeroDigitado() {
     setState(() {
       numeroController.clear();
-      numeroDigitado = '';
     });
   }
 

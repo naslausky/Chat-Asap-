@@ -40,8 +40,9 @@ class _EscolhaMensagemPadraoState extends State<EscolhaMensagemPadrao> {
                     ? IconButton(
                         icon: Icon(Icons.clear),
                         onPressed: () {
-                          mensagemPadraoController.clear();
-                          setState(() {});
+                          setState(() {
+                            mensagemPadraoController.clear();
+                          });
                         },
                       )
                     : null,
@@ -53,7 +54,7 @@ class _EscolhaMensagemPadraoState extends State<EscolhaMensagemPadrao> {
       ),
       actions: [
         TextButton(
-          child: Text("Ok!"),
+          child: Text("Save"),
           onPressed: () {
             Preferencias.mensagemPadrao = mensagemPadraoController.text;
             Navigator.of(context).pop();
