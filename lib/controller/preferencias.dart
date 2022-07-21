@@ -6,6 +6,7 @@ enum Chaves {
   ultimoPaisSelecionado,
   jaEscolheuTema,
   tamanhoHistorico,
+  mensagemPadrao,
 }
 
 class Preferencias {
@@ -17,7 +18,8 @@ class Preferencias {
     Chaves.ultimasStringsChamadas: 'ultimas_strings_chamadas',
     Chaves.ultimoPaisSelecionado: 'ultimo_pais_selecionado',
     Chaves.jaEscolheuTema: 'ja_escolheu_tema',
-    Chaves.tamanhoHistorico: 'tamanho_historico'
+    Chaves.tamanhoHistorico: 'tamanho_historico',
+    Chaves.mensagemPadrao: 'mensagem_padrao',
   };
 
   static Future<void> inicializar() async {
@@ -66,6 +68,19 @@ class Preferencias {
   static set tamanhoHistorico(int tamanho) {
     String chave = _chavesPreferencias[Chaves.tamanhoHistorico] ?? '';
     prefs?.setInt(chave, tamanho);
+  }
+
+  static String get mensagemPadrao {
+    String chave = _chavesPreferencias[Chaves.mensagemPadrao] ?? '';
+    if (prefs?.containsKey(chave) ?? false) {
+      return prefs?.getString(chave) ?? '';
+    } else
+      return '';
+  }
+
+  static set mensagemPadrao(String mensagem) {
+    String chave = _chavesPreferencias[Chaves.mensagemPadrao] ?? '';
+    prefs?.setString(chave, mensagem);
   }
 
   static void incrementarTamanhoHistorico() {

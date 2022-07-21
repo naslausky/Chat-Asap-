@@ -7,6 +7,7 @@ import 'package:chat_asap/components/item_pais_widget.dart';
 import 'package:chat_asap/controller/preferencias.dart';
 import 'package:chat_asap/components/historico.dart';
 import 'package:chat_asap/components/opcoes.dart';
+import 'package:chat_asap/components/escolha_mensagem_padrao.dart';
 
 class PaginaInicial extends StatefulWidget {
   PaginaInicial({Key? key, this.title = "", this.callbackAtualizacaoTema})
@@ -28,6 +29,14 @@ class _PaginaInicialState extends State<PaginaInicial> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
+          IconButton(
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => EscolhaMensagemPadrao(
+                        callback: widget.callbackAtualizacaoTema ??
+                            () => setState(() {}),
+                      )),
+              icon: Icon(Icons.message)),
           IconButton(
               onPressed: () => showDialog(
                   context: context,
@@ -88,7 +97,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                         border: OutlineInputBorder(),
                         labelText: 'Full phone number',
                         hintText: 'City code included',
-                        suffixIcon: numeroDigitado.length > 0
+                        suffixIcon: numeroController.text.length > 0
                             ? IconButton(
                                 icon: Icon(Icons.clear),
                                 onPressed: _limparNumeroDigitado,
@@ -153,6 +162,12 @@ class _PaginaInicialState extends State<PaginaInicial> {
   _abrirConversa(String phone) async {
     String universalLinkWhatsapp = 'https://wa.me/';
     String url = universalLinkWhatsapp + phone;
+    String mensagemPadrao = Preferencias.mensagemPadrao;
+    if (mensagemPadrao.isNotEmpty) {
+      String mensagemPadraoCodificada = Uri.encodeComponent(mensagemPadrao);
+      print(mensagemPadraoCodificada);
+      url = url + '/?text=' + mensagemPadraoCodificada;
+    }
     bool conseguiuAbrir = await AbridorDeURL.abrir(url);
     if (conseguiuAbrir) {
       Preferencias.adicionarNumeroAoHistorico(phone);
