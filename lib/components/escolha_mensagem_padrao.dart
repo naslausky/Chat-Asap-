@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:chat_asap/controller/preferencias.dart';
-import 'package:chat_asap/controller/abridor_url.dart';
 
 class EscolhaMensagemPadrao extends StatefulWidget {
-  const EscolhaMensagemPadrao({required this.callback, Key? key})
-      : super(key: key);
-  final Function callback;
+  const EscolhaMensagemPadrao({Key? key}) : super(key: key);
   @override
   _EscolhaMensagemPadraoState createState() => _EscolhaMensagemPadraoState();
 }

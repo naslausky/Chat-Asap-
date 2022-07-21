@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Historico extends StatelessWidget {
-  const Historico(
-      {required List<String> this.dados, required this.callback, Key? key})
+  const Historico({required this.dados, required this.callback, Key? key})
       : super(key: key);
   final List<String> dados;
   final Function(String) callback;

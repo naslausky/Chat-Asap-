@@ -31,11 +31,9 @@ class _PaginaInicialState extends State<PaginaInicial> {
         actions: [
           IconButton(
               onPressed: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) => EscolhaMensagemPadrao(
-                        callback: widget.callbackAtualizacaoTema ??
-                            () => setState(() {}),
-                      )),
+                    context: context,
+                    builder: (BuildContext context) => EscolhaMensagemPadrao(),
+                  ),
               icon: Icon(Icons.message)),
           IconButton(
               onPressed: () => showDialog(
