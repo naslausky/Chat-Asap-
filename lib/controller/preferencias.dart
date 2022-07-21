@@ -5,11 +5,11 @@ enum Chaves {
   ultimasStringsChamadas,
   ultimoPaisSelecionado,
   jaEscolheuTema,
+  tamanhoHistorico,
 }
 
 class Preferencias {
   static SharedPreferences? prefs;
-  static final tamanhoHistorico = 5;
   static final _paisInicialPadrao = "BR";
 
   static final Map<Chaves, String> _chavesPreferencias = {
@@ -17,6 +17,7 @@ class Preferencias {
     Chaves.ultimasStringsChamadas: 'ultimas_strings_chamadas',
     Chaves.ultimoPaisSelecionado: 'ultimo_pais_selecionado',
     Chaves.jaEscolheuTema: 'ja_escolheu_tema',
+    Chaves.tamanhoHistorico: 'tamanho_historico'
   };
 
   static Future<void> inicializar() async {
@@ -52,6 +53,34 @@ class Preferencias {
       return prefs?.getBool(chave) ?? false;
     else
       return false;
+  }
+
+  static int get tamanhoHistorico {
+    String chave = _chavesPreferencias[Chaves.tamanhoHistorico] ?? '';
+    if (prefs?.containsKey(chave) ?? false) {
+      return prefs?.getInt(chave) ?? 5;
+    } else
+      return 5;
+  }
+
+  static set tamanhoHistorico(int tamanho) {
+    String chave = _chavesPreferencias[Chaves.tamanhoHistorico] ?? '';
+    prefs?.setInt(chave, tamanho);
+  }
+
+  static void incrementarTamanhoHistorico() {
+    tamanhoHistorico += 1;
+  }
+
+  static void decrementarTamanhoHistorico() {
+    if (tamanhoHistorico > 0) {
+      tamanhoHistorico -= 1;
+    }
+    if (historico.length > tamanhoHistorico) {
+      List<String> historicoAtual = historico;
+      historicoAtual.removeRange(0, historicoAtual.length - tamanhoHistorico);
+      historico = historicoAtual;
+    }
   }
 
   static set ultimoPaisSelecionado(String codigoPais) {
