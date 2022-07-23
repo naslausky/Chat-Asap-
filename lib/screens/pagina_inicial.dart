@@ -169,4 +169,10 @@ class _PaginaInicialState extends State<PaginaInicial> {
     }
     setState(() {});
   }
+
+  @override
+  void dispose() {
+    numeroController.dispose();
+    super.dispose();
+  }
 }

@@ -10,6 +10,12 @@ class EscolhaMensagemPadrao extends StatefulWidget {
 class _EscolhaMensagemPadraoState extends State<EscolhaMensagemPadrao> {
   TextEditingController mensagemPadraoController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+    mensagemPadraoController.text = Preferencias.mensagemPadrao;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Default message:"),
@@ -59,5 +65,11 @@ class _EscolhaMensagemPadraoState extends State<EscolhaMensagemPadrao> {
         )
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    mensagemPadraoController.dispose();
+    super.dispose();
   }
 }
