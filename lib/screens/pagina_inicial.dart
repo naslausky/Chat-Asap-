@@ -1,13 +1,13 @@
+import 'package:chat_asap/components/escolha_mensagem_padrao.dart';
+import 'package:chat_asap/components/historico.dart';
+import 'package:chat_asap/components/item_pais_widget.dart';
+import 'package:chat_asap/components/opcoes.dart';
+import 'package:chat_asap/controller/abridor_url.dart';
+import 'package:chat_asap/controller/preferencias.dart';
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:country_pickers/country_pickers.dart';
-import 'package:country_pickers/country.dart';
-import 'package:chat_asap/controller/abridor_url.dart';
-import 'package:chat_asap/components/item_pais_widget.dart';
-import 'package:chat_asap/controller/preferencias.dart';
-import 'package:chat_asap/components/historico.dart';
-import 'package:chat_asap/components/opcoes.dart';
-import 'package:chat_asap/components/escolha_mensagem_padrao.dart';
 
 class PaginaInicial extends StatefulWidget {
   PaginaInicial({Key? key, this.title = "", this.callbackAtualizacaoTema})
@@ -27,6 +27,10 @@ class _PaginaInicialState extends State<PaginaInicial> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(height: 1),
+        ),
         title: Text(widget.title),
         actions: [
           IconButton(
@@ -45,100 +49,102 @@ class _PaginaInicialState extends State<PaginaInicial> {
               icon: Icon(Icons.info))
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: Container(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: CountryPickerDropdown(
-                      initialValue: Preferencias.ultimoPaisSelecionado,
-                      itemBuilder: (Country country) =>
-                          CountryRowWidget(country: country),
-                      priorityList: [
-                        CountryPickerUtils.getCountryByIsoCode(
-                            Preferencias.ultimoPaisSelecionado),
-                      ],
-                      sortComparator: (Country a, Country b) =>
-                          a.isoCode.compareTo(b.isoCode),
-                      onValuePicked: (Country country) {
-                        paisSelecionado = country;
-                        Preferencias.ultimoPaisSelecionado =
-                            paisSelecionado.isoCode;
-                      },
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Container(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: TextField(
-                      controller: numeroController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                      ],
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Full phone number',
-                        hintText: 'City code included',
-                        suffixIcon: numeroController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(Icons.clear),
-                                onPressed: _limparNumeroDigitado,
-                              )
-                            : null,
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: CountryPickerDropdown(
+                        initialValue: Preferencias.ultimoPaisSelecionado,
+                        itemBuilder: (Country country) =>
+                            CountryRowWidget(country: country),
+                        priorityList: [
+                          CountryPickerUtils.getCountryByIsoCode(
+                              Preferencias.ultimoPaisSelecionado),
+                        ],
+                        sortComparator: (Country a, Country b) =>
+                            a.isoCode.compareTo(b.isoCode),
+                        onValuePicked: (Country country) {
+                          paisSelecionado = country;
+                          Preferencias.ultimoPaisSelecionado =
+                              paisSelecionado.isoCode;
+                        },
                       ),
-                      onChanged: (_) => setState(() {}),
                     ),
                   ),
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: FloatingActionButton(
-                onPressed: () {
-                  try {
-                    String numeroCompleto =
-                        paisSelecionado.phoneCode + numeroController.text;
-                    _abrirConversa(numeroCompleto);
-                  } catch (e) {
-                    print(e.toString());
-                  }
-                },
-                child: Icon(Icons.perm_phone_msg),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: TextField(
+                        controller: numeroController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                        ],
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Full phone number',
+                          hintText: 'City code included',
+                          suffixIcon: numeroController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(Icons.clear),
+                                  onPressed: _limparNumeroDigitado,
+                                )
+                              : null,
+                        ),
+                        onChanged: (_) => setState(() {}),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                'Number history:',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: FloatingActionButton(
+                  shape: const CircleBorder(),
+                  onPressed: () {
+                    try {
+                      String numeroCompleto =
+                          paisSelecionado.phoneCode + numeroController.text;
+                      _abrirConversa(numeroCompleto);
+                    } catch (e) {
+                      print(e.toString());
+                    }
+                  },
+                  child: Icon(Icons.perm_phone_msg),
+                ),
               ),
-            ),
-            Divider(),
-            Expanded(
-              flex: 3,
-              child: Historico(
-                  dados: Preferencias.historico.reversed.toList(),
-                  callback: _abrirConversa),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  'Number history:',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Divider(),
+              Expanded(
+                flex: 3,
+                child: Historico(
+                    dados: Preferencias.historico.reversed.toList(),
+                    callback: _abrirConversa),
+              ),
+            ],
+          ),
         ),
       ),
     );

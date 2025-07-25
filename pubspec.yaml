@@ -11,7 +11,7 @@ description: Aplicativo para conversa whatsapp sem necessidade de adição de co
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1+7
+version: 1.0.1+8
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -23,7 +23,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
-  country_pickers: ^2.0.0
+  country_pickers: ^3.0.1
   url_launcher: ^6.1.5
   shared_preferences: ^2.0.15
 
